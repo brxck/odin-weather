@@ -39,5 +39,5 @@ const isZip = value => {
 }
 
 search("85712")
-  .then(response => response.json())
-  .then(response => console.log(response))
+  .then(response => response.json()) // Taking advantage of implicit return
+  .then(data => console.log(data))
