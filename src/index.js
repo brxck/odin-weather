@@ -38,6 +38,34 @@ const isZip = value => {
   return !isNaN(parseFloat(value)) && isFinite(value) && value.length === 5
 }
 
+const processResponse = async response => {
+  const data = await response.json()
+  const processedData = {
+    name: data.name,
+    high: data.main.temp_max,
+    low: data.main.temp_min,
+    current: data.main.temp,
+    clouds: cloudCondition(data.clouds.all),
+    condition: data.weather[0].main
+  }
+  return processedData
+}
+
+const cloudCondition = percentage => {
+  // Adapted from: https://www.weather.gov/media/pah/ServiceGuide/A-forecast.pdf
+  if (percentage < 5) {
+    return "clear"
+  } else if (percentage < 25) {
+    return "mostly clear"
+  } else if (percentage < 50) {
+    return "partly cloudy"
+  } else if (percentage < 88) {
+    return "mostly cloudy"
+  } else {
+    return "overcast"
+  }
+}
+
 search("85712")
-  .then(response => response.json()) // Taking advantage of implicit return
+  .then(response => processResponse(response)) // Taking advantage of implicit return
   .then(data => console.log(data))
