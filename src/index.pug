@@ -1,17 +1,23 @@
 doctype html
 html(lang="en")
   head
-    title= pageTitle
+    title= odinWeather
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    link(rel='stylesheet' type='text/css' href='bulma.css')
-    script(type='text/javascript' src='bundle.js')
   body
     .container
-      h1.title Pug - node template engine
-        if youAreUsingPug
-          p You are amazing
-        else
-          p Get on it!
-        p.
-          Pug is a terse and simple templating language with a
-          strong focus on performance and powerful features.
+      section.hero.is-large#hero
+        .hero-body
+          .container
+            h1.title odinWeather
+            h2.subtitle
+            .field.has-addons
+              .control
+                button.button.is-static
+                  | What's the weather like in 
+              .control
+                input.input#input(placeholder="Place or zipcode")
+              .control
+                button.button.is-link#search ?
+
+    script(type='text/javascript' src='bundle.js')
+                

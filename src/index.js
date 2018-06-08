@@ -1,3 +1,5 @@
+import "./style.scss"
+
 // Can't hide key, oh well
 const apiKey = "fcf550c75447a36bd61343546421bbcc"
 
