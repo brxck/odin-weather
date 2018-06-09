@@ -1,1 +1,11 @@
 @import "~bulma/bulma";
+
+html,
+body {
+  background-color: whitesmoke;
+  height: 100%;
+}
+
+.card {
+  height: 90vh;
+}
