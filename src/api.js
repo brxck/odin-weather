@@ -9,6 +9,9 @@ const search = async value => {
     } else {
       response = await nameCurrent(value)
     }
+    if (response.status !== 200) {
+      return
+    }
     return await processResponse(response)
   } catch (error) {
     console.log(error)
@@ -42,28 +45,22 @@ const processResponse = async response => {
   const data = await response.json()
   const processedData = {
     name: data.name,
-    high: data.main.temp_max,
-    low: data.main.temp_min,
-    current: data.main.temp,
-    clouds: cloudCondition(data.clouds.all),
-    condition: data.weather[0].main
+    high: {
+      c: Math.round(data.main.temp_max - 273.15),
+      f: Math.round(data.main.temp_max * (9 / 5) - 459.67)
+    },
+    low: {
+      c: Math.round(data.main.temp_min - 273.15),
+      f: Math.round(data.main.temp_min * (9 / 5) - 459.67)
+    },
+    current: {
+      c: Math.round(data.main.temp - 273.15),
+      f: Math.round(data.main.temp * (9 / 5) - 459.67)
+    },
+    condition: data.weather[0].main,
+    conditionId: data.weather[0].id
   }
   return processedData
-}
-
-const cloudCondition = percentage => {
-  // Adapted from: https://www.weather.gov/media/pah/ServiceGuide/A-forecast.pdf
-  if (percentage < 5) {
-    return "clear"
-  } else if (percentage < 25) {
-    return "mostly clear"
-  } else if (percentage < 50) {
-    return "partly cloudy"
-  } else if (percentage < 88) {
-    return "mostly cloudy"
-  } else {
-    return "overcast"
-  }
 }
 
 export default search
