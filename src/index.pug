@@ -5,19 +5,22 @@ html(lang="en")
     meta(name='viewport' content='width=device-width, initial-scale=1')
   body
     .container
-      section.hero.is-large#hero
-        .hero-body
-          .container
-            h1.title odinWeather
-            h2.subtitle
-            .field.has-addons
-              .control
-                button.button.is-static
-                  | What's the weather like in 
-              .control
-                input.input#input(placeholder="Place or zipcode")
-              .control
-                button.button.is-link#search ?
+      section.section
+        .card
+          .card-content
+            .level
+              .level-item
+                .field.has-addons
+                  .control
+                    input.input#input(placeholder="Place or zipcode")
+                  .control
+                    button.button.is-link#go Go
+            section.section
+              .has-text-centered#view
+                h1.title#name
+                h2.subtitle#current
+                p#condition
+
 
     script(type='text/javascript' src='bundle.js')
                 
